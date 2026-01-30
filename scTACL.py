@@ -83,7 +83,7 @@ class scTACL(torch.nn.Module):
             feat_loss = F.mse_loss(self.features,self.rec)
             adj_loss = F.mse_loss(self.adj,self.A_rec)
             con_loss = F.mse_loss(self.cross_correlation(self.hidden_feat,self.z_a),self.adj)
-            loss = self.alpha*(feat_loss + 0.6 * adj_loss)  +  self.gama * con_loss
+            loss = self.alpha*(feat_loss + 0.6 * adj_loss)  +  self.gama * con_loss + self.beta * self.zinb_loss
             loss_list.append(loss.item())
             self.optimizer.zero_grad()
             loss.backward()
